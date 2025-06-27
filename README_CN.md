@@ -239,7 +239,7 @@ Go-MCP 采用优雅的三层架构设计：
 - **Discord**：点击[链接](https://discord.gg/4CSU8HYt)加入我们的用户群
 - **微信群**：
 
-![微信群二维码](docs/images/wechat_qrcode.png)
+![微信群二维码](docs/images/wechat_qrcode.jpg)
 
 ## ✨ 贡献者
 

@@ -234,7 +234,7 @@ Dự án này được cấp phép theo Giấy phép MIT - xem tệp [LICENSE](L
 - **Discord**: Nhấp [vào đây](https://discord.gg/4CSU8HYt) để tham gia nhóm người dùng của chúng tôi
 - **Nhóm WeChat**:
 
-![Mã QR WeChat](docs/images/wechat_qrcode.png)
+![Mã QR WeChat](docs/images/wechat_qrcode.jpg)
 
 ## ✨ Người đóng góp
 

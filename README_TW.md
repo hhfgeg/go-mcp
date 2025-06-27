@@ -233,7 +233,7 @@ Go-MCP 採用優雅的三層架構設計：
 - **Discord**：點擊[這裡](https://discord.gg/4CSU8HYt)加入用戶群
 - **微信社群**：
 
-![微信 QR Code](docs/images/wechat_qrcode.png)
+![微信 QR Code](docs/images/wechat_qrcode.jpg)
 
 ## ✨ 貢獻者
 
