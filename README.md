@@ -239,7 +239,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discord**: Click [here](https://discord.gg/4CSU8HYt) to join our user group
 - **WeChat Group**:
 
-![WeChat QR Code](docs/images/wechat_qrcode.png)
+![WeChat QR Code](docs/images/wechat_qrcode.jpg)
 
 ## ✨ Contributors
 
