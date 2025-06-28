@@ -110,13 +110,6 @@ func (r *CreateMessageResult) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	// Try to unmarshal content as ResourceLink
-	var resourceLink *ResourceLink
-	if err := pkg.JSONUnmarshal(aux.Content, &resourceLink); err == nil {
-		r.Content = resourceLink
-		return nil
-	}
-
 	return fmt.Errorf("unknown content type, content=%s", aux.Content)
 }
 
