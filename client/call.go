@@ -27,7 +27,7 @@ func (client *Client) initialization(ctx context.Context, request *protocol.Init
 	}
 
 	if _, ok := protocol.SupportedVersion[result.ProtocolVersion]; !ok {
-		return nil, fmt.Errorf("protocol version not supported, supported lastest version is %v", protocol.Version)
+		return nil, fmt.Errorf("protocol version not supported, latest supported version is %v", protocol.Version)
 	}
 
 	if err = client.sendNotification4Initialized(ctx); err != nil {
