@@ -22,10 +22,11 @@ func (server *Server) handleRequestWithInitialize(ctx context.Context, sessionID
 		return nil, err
 	}
 
-	if _, ok := protocol.SupportedVersion[request.ProtocolVersion]; !ok {
-		return nil, fmt.Errorf("protocol version not supported, latest supported version is %v", protocol.Version)
-	}
+	// Version negotiation: if client's version is supported, use it; otherwise use server's latest version
 	protocolVersion := request.ProtocolVersion
+	if _, ok := protocol.SupportedVersion[request.ProtocolVersion]; !ok {
+		protocolVersion = protocol.Version
+	}
 
 	if midVar, ok := ctx.Value(transport.SessionIDForReturnKey{}).(*transport.SessionIDForReturn); ok {
 		sessionID = server.sessionManager.CreateSession(ctx)
