@@ -50,6 +50,10 @@ func WithLogger(logger pkg.Logger) Option {
 // Allow ToolHandlerFunc to be wrapped like a chain call
 type ToolMiddleware func(ToolHandlerFunc) ToolHandlerFunc
 
+// MiddlewareFunc defines the global middleware function type for all tools
+// Unlike ToolMiddleware which is per-tool, this applies to all tools globally
+type MiddlewareFunc func(ctx context.Context, req *protocol.CallToolRequest, next ToolHandlerFunc) (*protocol.CallToolResult, error)
+
 // RateLimitMiddleware Return a rate-limiting middleware
 func RateLimitMiddleware(limiter pkg.RateLimiter) ToolMiddleware {
 	return func(next ToolHandlerFunc) ToolHandlerFunc {
@@ -96,6 +100,8 @@ type Server struct {
 	logger pkg.Logger
 
 	genSessionID func(ctx context.Context) string
+
+	globalMiddlewares []MiddlewareFunc
 }
 
 func NewServer(t transport.ServerTransport, opts ...Option) (*Server, error) {
@@ -151,7 +157,10 @@ func (server *Server) RegisterTool(tool *protocol.Tool, toolHandler ToolHandlerF
 	for i := len(middlewares) - 1; i >= 0; i-- {
 		toolHandler = middlewares[i](toolHandler)
 	}
-	server.tools.Store(tool.Name, &toolEntry{tool: tool, handler: toolHandler})
+
+	finalHandler := server.buildMiddlewareChain(toolHandler)
+
+	server.tools.Store(tool.Name, &toolEntry{tool: tool, handler: finalHandler})
 	if !server.sessionManager.IsEmpty() {
 		if err := server.sendNotification4ToolListChanges(context.Background()); err != nil {
 			server.logger.Warnf("send notification toll list changes fail: %v", err)
@@ -251,6 +260,28 @@ func (server *Server) UnregisterResourceTemplate(uriTemplate string) {
 			return
 		}
 	}
+}
+
+func (server *Server) Use(middlewares ...MiddlewareFunc) {
+	server.globalMiddlewares = append(server.globalMiddlewares, middlewares...)
+}
+
+func (server *Server) buildMiddlewareChain(finalHandler ToolHandlerFunc) ToolHandlerFunc {
+	if len(server.globalMiddlewares) == 0 {
+		return finalHandler
+	}
+
+	handler := finalHandler
+	for i := len(server.globalMiddlewares) - 1; i >= 0; i-- {
+		middleware := server.globalMiddlewares[i]
+		currentHandler := handler
+		currentMiddleware := middleware
+		handler = func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
+			return currentMiddleware(ctx, req, currentHandler)
+		}
+	}
+
+	return handler
 }
 
 func (server *Server) Shutdown(userCtx context.Context) error {
