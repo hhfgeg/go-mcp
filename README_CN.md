@@ -120,8 +120,21 @@ func main() {
 
 	// 可选：添加全局中间件用于日志记录、认证等
 	// mcpServer.Use(func(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
-	// 	log.Printf("工具被调用: %s, 参数: %v", req.Name, req.Arguments)
-	// 	return next(ctx, req)
+	// 	// 前置处理
+	// 	start := time.Now()
+	// 	log.Printf("工具开始执行: %s, 参数: %v", req.Name, req.Arguments)
+	// 
+	// 	// 调用下一个处理器
+	// 	result, err := next(ctx, req)
+	// 
+	// 	// 后置处理
+	// 	duration := time.Since(start)
+	// 	if err != nil {
+	// 		log.Printf("工具执行失败: %s, 错误: %v, 耗时: %v", req.Name, err, duration)
+	// 	} else {
+	// 		log.Printf("工具执行成功: %s, 耗时: %v", req.Name, duration)
+	// 	}
+	// 	return result, err
 	// })
 
 	// 注册时间查询工具

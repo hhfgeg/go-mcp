@@ -114,8 +114,21 @@ func main() {
 
 	// Optional: Add global middleware for logging, authentication, etc.
 	// mcpServer.Use(func(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
-	// 	log.Printf("Tool called: %s with args: %v", req.Name, req.Arguments)
-	// 	return next(ctx, req)
+	// 	// Pre-processing
+	// 	start := time.Now()
+	// 	log.Printf("Tool started: %s with args: %v", req.Name, req.Arguments)
+	// 
+	// 	// Call next handler
+	// 	result, err := next(ctx, req)
+	// 
+	// 	// Post-processing
+	// 	duration := time.Since(start)
+	// 	if err != nil {
+	// 		log.Printf("Tool failed: %s, error: %v, duration: %v", req.Name, err, duration)
+	// 	} else {
+	// 		log.Printf("Tool succeeded: %s, duration: %v", req.Name, duration)
+	// 	}
+	// 	return result, err
 	// })
 
 	// Register time query tool
