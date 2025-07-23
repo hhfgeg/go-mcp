@@ -51,8 +51,7 @@ func WithLogger(logger pkg.Logger) Option {
 type ToolMiddleware func(ToolHandlerFunc) ToolHandlerFunc
 
 // MiddlewareFunc defines the global middleware function type for all tools
-// Unlike ToolMiddleware which is per-tool, this applies to all tools globally
-type MiddlewareFunc func(ctx context.Context, req *protocol.CallToolRequest, next ToolHandlerFunc) (*protocol.CallToolResult, error)
+type MiddlewareFunc func(ToolHandlerFunc) ToolHandlerFunc
 
 // RateLimitMiddleware Return a rate-limiting middleware
 func RateLimitMiddleware(limiter pkg.RateLimiter) ToolMiddleware {
@@ -101,7 +100,7 @@ type Server struct {
 
 	genSessionID func(ctx context.Context) string
 
-	globalMiddlewares []MiddlewareFunc
+	globalMiddlewares []func(ToolHandlerFunc) ToolHandlerFunc
 }
 
 func NewServer(t transport.ServerTransport, opts ...Option) (*Server, error) {
@@ -262,8 +261,24 @@ func (server *Server) UnregisterResourceTemplate(uriTemplate string) {
 	}
 }
 
-func (server *Server) Use(middlewares ...MiddlewareFunc) {
-	server.globalMiddlewares = append(server.globalMiddlewares, middlewares...)
+func (server *Server) Use(middlewares ...interface{}) {
+	for _, m := range middlewares {
+		switch middleware := m.(type) {
+		case func(ToolHandlerFunc) ToolHandlerFunc:
+			server.globalMiddlewares = append(server.globalMiddlewares, middleware)
+		case func(ctx context.Context, req *protocol.CallToolRequest, next ToolHandlerFunc) (*protocol.CallToolResult, error):
+			converted := func(next ToolHandlerFunc) ToolHandlerFunc {
+				return func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
+					return middleware(ctx, req, next)
+				}
+			}
+			server.globalMiddlewares = append(server.globalMiddlewares, converted)
+		default:
+			if fn, ok := middleware.(func(ToolHandlerFunc) ToolHandlerFunc); ok {
+				server.globalMiddlewares = append(server.globalMiddlewares, fn)
+			}
+		}
+	}
 }
 
 func (server *Server) buildMiddlewareChain(finalHandler ToolHandlerFunc) ToolHandlerFunc {
@@ -275,10 +290,7 @@ func (server *Server) buildMiddlewareChain(finalHandler ToolHandlerFunc) ToolHan
 	for i := len(server.globalMiddlewares) - 1; i >= 0; i-- {
 		middleware := server.globalMiddlewares[i]
 		currentHandler := handler
-		currentMiddleware := middleware
-		handler = func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
-			return currentMiddleware(ctx, req, currentHandler)
-		}
+		handler = middleware(currentHandler)
 	}
 
 	return handler
