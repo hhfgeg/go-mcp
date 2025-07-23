@@ -117,6 +117,12 @@ func main() {
 		log.Fatalf("Failed to create MCP server: %v", err)
 	}
 
+	// Optional: Add global middleware for logging, auth, etc.
+	// mcpServer.Use(func(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
+	// 	log.Printf("Tool called: %s with args: %v", req.Name, req.Arguments)
+	// 	return next(ctx, req)
+	// })
+
 	// Register time query tool
 	tool, err := protocol.NewTool("current_time", "Get current time for specified timezone", TimeRequest{})
 	if err != nil {
