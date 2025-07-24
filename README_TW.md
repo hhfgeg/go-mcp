@@ -111,24 +111,12 @@ func main() {
     log.Fatalf("建立 MCP 伺服器失敗: %v", err)
   }
 
-  // 可選：添加全域中介軟體用於日誌記錄、認證等
-  // mcpServer.Use(func(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
-  // 	// 前置處理
-  // 	start := time.Now()
-  // 	log.Printf("工具開始執行: %s, 參數: %v", req.Name, req.Arguments)
-  // 
-  // 	// 呼叫下一個處理器
-  // 	result, err := next(ctx, req)
-  // 
-  // 	// 後置處理
-  // 	duration := time.Since(start)
-  // 	if err != nil {
-  // 		log.Printf("工具執行失敗: %s, 錯誤: %v, 耗時: %v", req.Name, err, duration)
-  // 	} else {
-  // 		log.Printf("工具執行成功: %s, 耗時: %v", req.Name, duration)
-  // 	}
-  // 	return result, err
-  // })
+  // 可選：全域中介軟體（支援多個中介軟體參數）
+  // mcpServer.Use(
+  // 	LoggingMiddleware,
+  // 	AuthMiddleware,
+  // 	MetricsMiddleware,
+  // )
 
   // 註冊時間查詢工具
   tool, err := protocol.NewTool("current_time", "取得指定時區的目前時間", TimeRequest{})

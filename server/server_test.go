@@ -943,8 +943,10 @@ func TestMiddleware(t *testing.T) {
 		t.Fatal("Server is nil")
 	}
 
-	testMiddleware := func(ctx context.Context, req *protocol.CallToolRequest, next ToolHandlerFunc) (*protocol.CallToolResult, error) {
-		return next(ctx, req)
+	testMiddleware := func(next ToolHandlerFunc) ToolHandlerFunc {
+		return func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
+			return next(ctx, req)
+		}
 	}
 
 	s.Use(testMiddleware)
