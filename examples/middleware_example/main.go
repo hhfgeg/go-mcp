@@ -11,63 +11,79 @@ import (
 	"github.com/ThinkInAIXYZ/go-mcp/transport"
 )
 
-// LoggingMiddleware logs all tool calls
-func LoggingMiddleware(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
-	start := time.Now()
-	log.Printf("[Middleware] Tool call started: %s, args: %v", req.Name, req.Arguments)
+// LoggingMiddleware returns a logging middleware
+func LoggingMiddleware() server.ToolMiddleware {
+	return func(next server.ToolHandlerFunc) server.ToolHandlerFunc {
+		return func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
+			start := time.Now()
+			log.Printf("[Middleware] Tool call started: %s, args: %v", req.Name, req.Arguments)
 
-	result, err := next(ctx, req)
+			result, err := next(ctx, req)
 
-	duration := time.Since(start)
-	if err != nil {
-		log.Printf("[Middleware] Tool call failed: %s, error: %v, duration: %v", req.Name, err, duration)
-	} else {
-		log.Printf("[Middleware] Tool call succeeded: %s, duration: %v", req.Name, duration)
-	}
+			duration := time.Since(start)
+			if err != nil {
+				log.Printf("[Middleware] Tool call failed: %s, error: %v, duration: %v", req.Name, err, duration)
+			} else {
+				log.Printf("[Middleware] Tool call succeeded: %s, duration: %v", req.Name, duration)
+			}
 
-	return result, err
-}
-
-// AuthMiddleware checks for authentication
-func AuthMiddleware(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
-	if req.Arguments == nil {
-		req.Arguments = make(map[string]interface{})
-	}
-
-	if authToken, ok := req.Arguments["auth_token"]; !ok || authToken != "valid_token" {
-		return nil, fmt.Errorf("unauthorized: invalid or missing auth_token")
-	}
-
-	delete(req.Arguments, "auth_token")
-
-	log.Printf("[Middleware] Authentication passed for tool: %s", req.Name)
-	return next(ctx, req)
-}
-
-// MetricsMiddleware collects metrics
-func MetricsMiddleware(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
-	log.Printf("[Middleware] Collecting metrics for tool: %s", req.Name)
-
-	result, err := next(ctx, req)
-
-	if err != nil {
-		log.Printf("[Middleware] Metric: tool=%s, status=error", req.Name)
-	} else {
-		log.Printf("[Middleware] Metric: tool=%s, status=success", req.Name)
-	}
-
-	return result, err
-}
-
-// PanicRecoveryMiddleware recovers from panics
-func PanicRecoveryMiddleware(ctx context.Context, req *protocol.CallToolRequest, next server.ToolHandlerFunc) (*protocol.CallToolResult, error) {
-	defer func() {
-		if r := recover(); r != nil {
-			log.Printf("[Middleware] Recovered from panic in tool %s: %v", req.Name, r)
+			return result, err
 		}
-	}()
+	}
+}
 
-	return next(ctx, req)
+// AuthMiddleware returns an authentication middleware
+func AuthMiddleware() server.ToolMiddleware {
+	return func(next server.ToolHandlerFunc) server.ToolHandlerFunc {
+		return func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
+			if req.Arguments == nil {
+				req.Arguments = make(map[string]interface{})
+			}
+
+			if authToken, ok := req.Arguments["auth_token"]; !ok || authToken != "valid_token" {
+				return nil, fmt.Errorf("unauthorized: invalid or missing auth_token")
+			}
+
+			delete(req.Arguments, "auth_token")
+
+			log.Printf("[Middleware] Authentication passed for tool: %s", req.Name)
+			return next(ctx, req)
+		}
+	}
+}
+
+// MetricsMiddleware returns a metrics collection middleware
+func MetricsMiddleware() server.ToolMiddleware {
+	return func(next server.ToolHandlerFunc) server.ToolHandlerFunc {
+		return func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
+			log.Printf("[Middleware] Collecting metrics for tool: %s", req.Name)
+
+			result, err := next(ctx, req)
+
+			if err != nil {
+				log.Printf("[Middleware] Metric: tool=%s, status=error", req.Name)
+			} else {
+				log.Printf("[Middleware] Metric: tool=%s, status=success", req.Name)
+			}
+
+			return result, err
+		}
+	}
+}
+
+// PanicRecoveryMiddleware returns a panic recovery middleware
+func PanicRecoveryMiddleware() server.ToolMiddleware {
+	return func(next server.ToolHandlerFunc) server.ToolHandlerFunc {
+		return func(ctx context.Context, req *protocol.CallToolRequest) (*protocol.CallToolResult, error) {
+			defer func() {
+				if r := recover(); r != nil {
+					log.Printf("[Middleware] Recovered from panic in tool %s: %v", req.Name, r)
+				}
+			}()
+
+			return next(ctx, req)
+		}
+	}
 }
 
 // HelloWorldHandler is a sample tool handler
@@ -117,10 +133,10 @@ func main() {
 
 	log.Println("Registering global middlewares...")
 	mcpServer.Use(
-		PanicRecoveryMiddleware,
-		LoggingMiddleware,
-		AuthMiddleware,
-		MetricsMiddleware,
+		PanicRecoveryMiddleware(),
+		LoggingMiddleware(),
+		AuthMiddleware(),
+		MetricsMiddleware(),
 	)
 
 	log.Println("Registering tools...")
