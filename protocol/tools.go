@@ -49,6 +49,9 @@ type Tool struct {
 	// InputSchema defines the expected parameters for the tool using JSON Schema
 	InputSchema InputSchema `json:"inputSchema"`
 
+	// OutputSchema defines expected output structure for the tool using Optional JSON Schema
+	OutputSchema OutputSchema `json:"outputSchema"`
+
 	// Annotations provides additional hints about the tool's behavior
 	Annotations *ToolAnnotations `json:"annotations,omitempty"`
 
@@ -82,6 +85,10 @@ func (t *Tool) MarshalJSON() ([]byte, error) {
 		m["inputSchema"] = t.InputSchema
 	}
 
+	if t.OutputSchema.Properties != nil {
+		m["outputSchema"] = t.OutputSchema
+	}
+
 	// Add annotations if present
 	if t.Annotations != nil {
 		m["annotations"] = t.Annotations
@@ -100,6 +107,9 @@ type InputSchema struct {
 	Properties map[string]*Property `json:"properties,omitempty"`
 	Required   []string             `json:"required,omitempty"`
 }
+
+// OutputSchema represents a Optional JSON Schema object defining expected output structure for a tool
+type OutputSchema InputSchema
 
 // CallToolRequest represents a request to call a specific tool
 type CallToolRequest struct {
