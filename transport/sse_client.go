@@ -41,6 +41,12 @@ func WithRetryFunc(retry func(func() error)) SSEClientTransportOption {
 	}
 }
 
+func WithSSEClientOptionHeader(header map[string][]string) SSEClientTransportOption {
+	return func(t *sseClientTransport) {
+		t.header = header
+	}
+}
+
 type sseClientTransport struct {
 	ctx    context.Context
 	cancel context.CancelFunc
@@ -55,6 +61,7 @@ type sseClientTransport struct {
 	logger         pkg.Logger
 	receiveTimeout time.Duration
 	client         *http.Client
+	header         map[string][]string
 
 	retry func(func() error)
 
@@ -135,6 +142,14 @@ func (t *sseClientTransport) Start() (err error) {
 	return nil
 }
 
+func (t *sseClientTransport) addHeader(req *http.Request) {
+	for key, values := range t.header {
+		for _, v := range values {
+			req.Header.Add(key, v)
+		}
+	}
+}
+
 func (t *sseClientTransport) startSSE() error {
 	req, err := http.NewRequestWithContext(t.ctx, http.MethodGet, t.serverURL.String(), nil)
 	if err != nil {
@@ -144,6 +159,7 @@ func (t *sseClientTransport) startSSE() error {
 	req.Header.Set("Accept", "text/event-stream")
 	req.Header.Set("Cache-Control", "no-cache")
 	req.Header.Set("Connection", "keep-alive")
+	t.addHeader(req)
 
 	resp, err := t.client.Do(req) //nolint:bodyclose
 	if err != nil {
@@ -246,6 +262,7 @@ func (t *sseClientTransport) Send(ctx context.Context, msg Message) error {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
+	t.addHeader(req)
 
 	if resp, err = t.client.Do(req); err != nil {
 		return fmt.Errorf("failed to send message: %w", err)
