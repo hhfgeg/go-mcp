@@ -8,9 +8,9 @@ import (
 
 	cmap "github.com/orcaman/concurrent-map/v2"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
-	"github.com/ThinkInAIXYZ/go-mcp/protocol"
-	"github.com/ThinkInAIXYZ/go-mcp/transport"
+	"github.com/hhfgeg/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/protocol"
+	"github.com/hhfgeg/go-mcp/transport"
 )
 
 type Option func(*Client)

@@ -6,14 +6,14 @@
 <br/>
 
 <p align="center">
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/releases"><img src="https://img.shields.io/github/v/release/ThinkInAIXYZ/go-mcp?style=flat" alt="Release"></a>
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/stargazers"><img src="https://img.shields.io/github/stars/ThinkInAIXYZ/go-mcp?style=flat" alt="Stars"></a>
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/network/members"><img src="https://img.shields.io/github/forks/ThinkInAIXYZ/go-mcp?style=flat" alt="Forks"></a>
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/issues"><img src="https://img.shields.io/github/issues/ThinkInAIXYZ/go-mcp?color=gold&style=flat" alt="Issues"></a>
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/pulls"><img src="https://img.shields.io/github/issues-pr/ThinkInAIXYZ/go-mcp?color=gold&style=flat" alt="Pull Requests"></a>
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/graphs/contributors"><img src="https://img.shields.io/github/contributors/ThinkInAIXYZ/go-mcp?color=green&style=flat" alt="Contributors"></a>
-  <a href="https://github.com/ThinkInAIXYZ/go-mcp/commits"><img src="https://img.shields.io/github/last-commit/ThinkInAIXYZ/go-mcp?color=green&style=flat" alt="Last Commit"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/releases"><img src="https://img.shields.io/github/v/release/hhfgeg/go-mcp?style=flat" alt="Release"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/stargazers"><img src="https://img.shields.io/github/stars/hhfgeg/go-mcp?style=flat" alt="Stars"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/network/members"><img src="https://img.shields.io/github/forks/hhfgeg/go-mcp?style=flat" alt="Forks"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/issues"><img src="https://img.shields.io/github/issues/hhfgeg/go-mcp?color=gold&style=flat" alt="Issues"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/pulls"><img src="https://img.shields.io/github/issues-pr/hhfgeg/go-mcp?color=gold&style=flat" alt="Pull Requests"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/graphs/contributors"><img src="https://img.shields.io/github/contributors/hhfgeg/go-mcp?color=green&style=flat" alt="Contributors"></a>
+  <a href="https://github.com/hhfgeg/go-mcp/commits"><img src="https://img.shields.io/github/last-commit/hhfgeg/go-mcp?color=green&style=flat" alt="Last Commit"></a>
 </p>
 <p align="center">
   <a href="README.md">English</a>
@@ -35,7 +35,7 @@ Go-MCP 是一個強大的 Go 語言版本 MCP SDK，實現 Model Context Protoco
 ## 🛠️ 安裝
 
 ```bash
-go get github.com/ThinkInAIXYZ/go-mcp
+go get github.com/hhfgeg/go-mcp
 ```
 
 需 Go 1.18 或更高版本。
@@ -51,8 +51,8 @@ import (
   "context"
   "log"
 
-  "github.com/ThinkInAIXYZ/go-mcp/client"
-  "github.com/ThinkInAIXYZ/go-mcp/transport"
+  "github.com/hhfgeg/go-mcp/client"
+  "github.com/hhfgeg/go-mcp/transport"
 )
 
 func main() {
@@ -89,9 +89,9 @@ import (
   "log"
   "time"
 
-  "github.com/ThinkInAIXYZ/go-mcp/protocol"
-  "github.com/ThinkInAIXYZ/go-mcp/server"
-  "github.com/ThinkInAIXYZ/go-mcp/transport"
+  "github.com/hhfgeg/go-mcp/protocol"
+  "github.com/hhfgeg/go-mcp/server"
+  "github.com/hhfgeg/go-mcp/transport"
 )
 
 type TimeRequest struct {
@@ -163,9 +163,9 @@ import (
   "context"
   "log"
 
-  "github.com/ThinkInAIXYZ/go-mcp/protocol"
-  "github.com/ThinkInAIXYZ/go-mcp/server"
-  "github.com/ThinkInAIXYZ/go-mcp/transport"
+  "github.com/hhfgeg/go-mcp/protocol"
+  "github.com/hhfgeg/go-mcp/server"
+  "github.com/hhfgeg/go-mcp/transport"
   "github.com/gin-gonic/gin"
 )
 
@@ -204,7 +204,7 @@ func main() {
 }
 ```
 
-[參考：更完整的範例](https://github.com/ThinkInAIXYZ/go-mcp/blob/main/examples/http_handler/main.go)
+[參考：更完整的範例](https://github.com/hhfgeg/go-mcp/blob/main/examples/http_handler/main.go)
 
 ## 🏗️ 架構設計
 
@@ -236,7 +236,7 @@ Go-MCP 採用優雅的三層架構設計：
 
 ## 📞 聯絡我們
 
-- **GitHub Issues**：[提交問題](https://github.com/ThinkInAIXYZ/go-mcp/issues)
+- **GitHub Issues**：[提交問題](https://github.com/hhfgeg/go-mcp/issues)
 - **Discord**：點擊[這裡](https://discord.gg/4CSU8HYt)加入用戶群
 - **微信社群**：
 
@@ -246,10 +246,10 @@ Go-MCP 採用優雅的三層架構設計：
 
 感謝所有為本專案做出貢獻的開發者！
 
-<a href="https://github.com/ThinkInAIXYZ/go-mcp/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ThinkInAIXYZ/go-mcp" alt="Contributors" />
+<a href="https://github.com/hhfgeg/go-mcp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=hhfgeg/go-mcp" alt="Contributors" />
 </a>
 
 ## 📈 專案趨勢
 
-[![Star 歷史](https://api.star-history.com/svg?repos=ThinkInAIXYZ/go-mcp&type=Date)](https://www.star-history.com/#ThinkInAIXYZ/go-mcp&Date)
+[![Star 歷史](https://api.star-history.com/svg?repos=hhfgeg/go-mcp&type=Date)](https://www.star-history.com/#hhfgeg/go-mcp&Date)

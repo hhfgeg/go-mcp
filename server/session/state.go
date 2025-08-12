@@ -9,8 +9,8 @@ import (
 
 	cmap "github.com/orcaman/concurrent-map/v2"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
-	"github.com/ThinkInAIXYZ/go-mcp/protocol"
+	"github.com/hhfgeg/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/protocol"
 )
 
 var ErrQueueNotOpened = errors.New("queue has not been opened")

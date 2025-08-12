@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 // ListPromptsRequest represents a request to list available prompts

@@ -9,7 +9,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 type StdioServerTransportOption func(*stdioServerTransport)

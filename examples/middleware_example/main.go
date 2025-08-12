@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/ThinkInAIXYZ/go-mcp/protocol"
-	"github.com/ThinkInAIXYZ/go-mcp/server"
-	"github.com/ThinkInAIXYZ/go-mcp/transport"
+	"github.com/hhfgeg/go-mcp/protocol"
+	"github.com/hhfgeg/go-mcp/server"
+	"github.com/hhfgeg/go-mcp/transport"
 )
 
 // LoggingMiddleware returns a logging middleware

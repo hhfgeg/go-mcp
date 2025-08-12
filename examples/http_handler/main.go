@@ -11,9 +11,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ThinkInAIXYZ/go-mcp/protocol"
-	"github.com/ThinkInAIXYZ/go-mcp/server"
-	"github.com/ThinkInAIXYZ/go-mcp/transport"
+	"github.com/hhfgeg/go-mcp/protocol"
+	"github.com/hhfgeg/go-mcp/server"
+	"github.com/hhfgeg/go-mcp/transport"
 )
 
 type currentTimeReq struct {

@@ -63,7 +63,7 @@ formatters:
   settings:
     goimports:
       local-prefixes:
-        - github.com/ThinkInAIXYZ
+        - github.com/hhfgeg
   exclusions:
     generated: lax
     paths:

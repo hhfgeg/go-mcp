@@ -1,4 +1,4 @@
-module github.com/ThinkInAIXYZ/go-mcp
+module github.com/hhfgeg/go-mcp
 
 go 1.18
 

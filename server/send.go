@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ThinkInAIXYZ/go-mcp/protocol"
+	"github.com/hhfgeg/go-mcp/protocol"
 )
 
 func (server *Server) sendMsgWithRequest(ctx context.Context, sessionID string, requestID protocol.RequestID,

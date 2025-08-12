@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/ThinkInAIXYZ/go-mcp/transport"
+	"github.com/hhfgeg/go-mcp/transport"
 )
 
 func TestSSE(t *testing.T) {

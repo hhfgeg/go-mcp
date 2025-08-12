@@ -11,7 +11,7 @@ import (
 	"os/exec"
 	"sync"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 type StdioClientTransportOption func(*stdioClientTransport)

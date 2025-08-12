@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 func VerifyAndUnmarshal(content json.RawMessage, v any) error {

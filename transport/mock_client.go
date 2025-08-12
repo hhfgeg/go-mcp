@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 type mockClientTransport struct {

@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ThinkInAIXYZ/go-mcp/transport"
+	"github.com/hhfgeg/go-mcp/transport"
 )
 
 func TestStdio(t *testing.T) {

@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 type SSEClientTransportOption func(*sseClientTransport)

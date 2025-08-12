@@ -1,2 +1,2 @@
 # More Examples
-References: https://github.com/ThinkInAIXYZ/mcp-servers
+References: https://github.com/hhfgeg/mcp-servers

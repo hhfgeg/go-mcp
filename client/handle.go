@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
-	"github.com/ThinkInAIXYZ/go-mcp/protocol"
+	"github.com/hhfgeg/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/protocol"
 )
 
 func (client *Client) handleRequestWithPing() (*protocol.PingResult, error) {

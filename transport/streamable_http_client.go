@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 const sessionIDHeader = "Mcp-Session-Id"

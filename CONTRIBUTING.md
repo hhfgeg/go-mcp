@@ -2,7 +2,7 @@
 Preparation: If you don't have a GitHub account, you need to create one before proceeding to the next step.
 
 ## 1 Fork the Code
-1. Visit https://github.com/thinkinaixyz/go-mcp
+1. Visit https://github.com/hhfgeg/go-mcp
 2. Click the "Fork" button (located at the top right of the page)
 
 ## 2 Clone the Code
@@ -12,7 +12,7 @@ If you have enabled SSH on GitHub, we recommend using SSH; otherwise, use HTTPS.
 We strongly recommend always using HTTPS for the official repository to avoid accidental operations.
 
 ```bash
-git clone https://github.com/thinkinaixyz/go-mcp.git
+git clone https://github.com/hhfgeg/go-mcp.git
 cd go-mcp
 git remote add upstream 'git@github.com:<your github username>/go-mcp.git'
 ```
@@ -52,5 +52,5 @@ git push upstream my-feature
 ```
 
 ## 8 Submit PR
-Visit https://github.com/thinkinaixyz/go-mcp,
+Visit https://github.com/hhfgeg/go-mcp,
 Click "Compare" to compare changes and click "Pull request" to submit the PR

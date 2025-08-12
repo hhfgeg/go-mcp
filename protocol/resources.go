@@ -6,7 +6,7 @@ import (
 
 	"github.com/yosida95/uritemplate/v3"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 // ListResourcesRequest Sent from the client to request a list of resources the server has.

@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ThinkInAIXYZ/go-mcp/pkg"
+	"github.com/hhfgeg/go-mcp/pkg"
 )
 
 func TestSSE(t *testing.T) {
