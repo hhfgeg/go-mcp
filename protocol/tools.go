@@ -246,6 +246,16 @@ func NewTool(name string, description string, inputReqStruct interface{}) (*Tool
 	}, nil
 }
 
+// NewToolWithInputSchema creates a new tool with a specific input schema
+func NewToolWithInputSchema(name, description string, schema InputSchema) *Tool {
+	return &Tool{
+		Name:        name,
+		Description: description,
+		InputSchema: schema,
+	}
+}
+
+// NewToolWithRawInputSchema creates a new tool with a raw input schema
 func NewToolWithRawSchema(name, description string, schema json.RawMessage) *Tool {
 	return &Tool{
 		Name:           name,
